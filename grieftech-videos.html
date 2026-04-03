@@ -74,7 +74,14 @@ body{background:#0a1628;font-family:var(--ff);padding:16px 12px}
   transition:opacity 0.15s,transform 0.15s}
 .gtv-row:hover .gtv-row-arrow{opacity:1;transform:translateX(3px)}
 
-.gtv-empty{padding:40px 20px;text-align:center;color:var(--b3);font-size:13px}
+.gtv-refresh-btn{font-size:10.5px;padding:4px 11px;border-radius:var(--rs);border:1px solid var(--b5);
+  background:transparent;color:var(--accent);cursor:pointer;display:inline-flex;align-items:center;gap:4px;
+  font-family:var(--ff);transition:background 0.15s;white-space:nowrap}
+.gtv-refresh-btn:hover{background:rgba(13,175,232,0.12)}
+.gtv-refresh-btn svg{width:11px;height:11px}
+.gtv-spinner{display:inline-block;width:11px;height:11px;border:1.5px solid rgba(13,175,232,0.3);
+  border-top-color:var(--accent);border-radius:50%;animation:spin .75s linear infinite;vertical-align:middle;margin-right:4px}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 .gtv-footer{background:var(--b9);border:1px solid var(--b7);border-top:none;
   border-radius:0 0 var(--r) var(--r);padding:10px 20px;
@@ -108,7 +115,13 @@ body{background:#0a1628;font-family:var(--ff);padding:16px 12px}
     </div>
     <div class="gtv-dateline">
       <span id="gtv-date"></span>
-      <span class="gtv-live"><span class="gtv-dot"></span>Curated grief tech videos</span>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span class="gtv-live"><span class="gtv-dot"></span><span id="lbl-status">Loading latest videos…</span></span>
+        <button class="gtv-refresh-btn" id="gtv-refresh" onclick="fetchVideos()">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M13.5 8A5.5 5.5 0 1 1 8 2.5c1.8 0 3.4.87 4.4 2.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M12.5 2v3h-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Refresh
+        </button>
+      </div>
     </div>
   </div>
 
@@ -142,93 +155,23 @@ const CAT = {
   robotics:{label:'Robotics',      bg:'#712B13', c:'#F5C4B3'}
 };
 
-// Add or update videos here — just need a title, YouTube URL, channel, and cat
-const VIDEOS = [
-  {
-    cat:'vr',
-    title:'Could You Have a Conversation With a Dead Relative?',
-    channel:'BBC Click',
-    desc:'BBC explores the technology allowing families to interact with AI recreations of deceased loved ones.',
-    url:'https://www.youtube.com/results?search_query=BBC+Click+dead+relative+conversation+AI'
-  },
-  {
-    cat:'ai',
-    title:'Grief in the Age of AI: Digital Afterlife Technology',
-    channel:'DW Documentary',
-    desc:'A deep-dive documentary on how artificial intelligence is reshaping how humans process death and loss.',
-    url:'https://www.youtube.com/results?search_query=DW+Documentary+grief+age+of+AI+digital+afterlife'
-  },
-  {
-    cat:'avatar',
-    title:'The Digital Afterlife: Bringing the Dead Back to Life with AI',
-    channel:'Vox',
-    desc:'Vox investigates the companies building AI avatars of deceased people and the ethical questions they raise.',
-    url:'https://www.youtube.com/results?search_query=Vox+digital+afterlife+AI+dead'
-  },
-  {
-    cat:'chatbot',
-    title:'AI Chatbots That Help You Process Grief and Loss',
-    channel:'CNET',
-    desc:'CNET reviews the latest generation of AI-powered grief support chatbots and what the research says.',
-    url:'https://www.youtube.com/results?search_query=CNET+AI+chatbot+grief+loss'
-  },
-  {
-    cat:'cloning',
-    title:'Is It Ethical to Digitally Clone a Deceased Person?',
-    channel:'TED',
-    desc:'A TED speaker examines the moral, legal, and psychological dimensions of recreating the dead through technology.',
-    url:'https://www.youtube.com/results?search_query=TED+ethical+digital+clone+deceased'
-  },
-  {
-    cat:'robotics',
-    title:'Japan\'s Robot Companions for Grief and Loneliness',
-    channel:'Reuters',
-    desc:'Reuters reports on how Japanese care homes are using social robots to support bereaved and lonely residents.',
-    url:'https://www.youtube.com/results?search_query=Reuters+Japan+robot+companion+grief+loneliness'
-  },
-  {
-    cat:'vr',
-    title:'Virtual Reality Therapy for Grief — Does It Work?',
-    channel:'Stanford Medicine',
-    desc:'Stanford researchers share findings from clinical trials using VR environments to treat complicated grief.',
-    url:'https://www.youtube.com/results?search_query=Stanford+Medicine+virtual+reality+therapy+grief'
-  },
-  {
-    cat:'ai',
-    title:'How AI Is Transforming Bereavement Support',
-    channel:'CBS Mornings',
-    desc:'CBS reports on startups and researchers using machine learning to provide grief support at scale.',
-    url:'https://www.youtube.com/results?search_query=CBS+Mornings+AI+bereavement+support'
-  },
-  {
-    cat:'avatar',
-    title:'Meeting a Deceased Loved One Through Virtual Reality',
-    channel:'Vice',
-    desc:'Vice follows families who have used immersive VR experiences to reconnect with deceased relatives.',
-    url:'https://www.youtube.com/results?search_query=Vice+deceased+loved+one+virtual+reality'
-  },
-  {
-    cat:'cloning',
-    title:'Talking to the Dead: AI Voice Cloning After Loss',
-    channel:'NBC News',
-    desc:'NBC investigates services that clone the voice of a deceased person from audio recordings.',
-    url:'https://www.youtube.com/results?search_query=NBC+News+AI+voice+cloning+deceased'
-  },
-  {
-    cat:'chatbot',
-    title:'Replika and the Rise of AI Grief Companions',
-    channel:'The Guardian',
-    desc:'The Guardian examines Replika and similar apps being used by bereaved people seeking connection after loss.',
-    url:'https://www.youtube.com/results?search_query=Guardian+Replika+AI+grief+companion'
-  },
-  {
-    cat:'robotics',
-    title:'Robotic Pets Helping People Cope With Bereavement',
-    channel:'CNN',
-    desc:'CNN looks at how lifelike robotic animals are being used to comfort grieving individuals in care settings.',
-    url:'https://www.youtube.com/results?search_query=CNN+robotic+pets+bereavement+grief'
-  }
+// Fallback videos shown before/if AI search loads
+const FALLBACK_VIDEOS = [
+  {cat:'vr',title:'Could You Have a Conversation With a Dead Relative?',channel:'BBC Click',desc:'BBC explores technology allowing families to interact with AI recreations of deceased loved ones.',url:'https://www.youtube.com/results?search_query=BBC+Click+dead+relative+conversation+AI'},
+  {cat:'ai',title:'Grief in the Age of AI: Digital Afterlife Technology',channel:'DW Documentary',desc:'A deep-dive documentary on how AI is reshaping how humans process death and loss.',url:'https://www.youtube.com/results?search_query=DW+Documentary+grief+age+of+AI+digital+afterlife'},
+  {cat:'avatar',title:'The Digital Afterlife: Bringing the Dead Back to Life with AI',channel:'Vox',desc:'Vox investigates companies building AI avatars of deceased people and the ethical questions they raise.',url:'https://www.youtube.com/results?search_query=Vox+digital+afterlife+AI+dead'},
+  {cat:'chatbot',title:'AI Chatbots That Help You Process Grief and Loss',channel:'CNET',desc:'CNET reviews the latest AI-powered grief support chatbots and what the research says.',url:'https://www.youtube.com/results?search_query=CNET+AI+chatbot+grief+loss'},
+  {cat:'cloning',title:'Is It Ethical to Digitally Clone a Deceased Person?',channel:'TED',desc:'A TED speaker examines the moral, legal, and psychological dimensions of recreating the dead through technology.',url:'https://www.youtube.com/results?search_query=TED+ethical+digital+clone+deceased'},
+  {cat:'robotics',title:'Japan\'s Robot Companions for Grief and Loneliness',channel:'Reuters',desc:'Reuters reports on how Japanese care homes use social robots to support bereaved residents.',url:'https://www.youtube.com/results?search_query=Reuters+Japan+robot+companion+grief+loneliness'},
+  {cat:'vr',title:'Virtual Reality Therapy for Grief — Does It Work?',channel:'Stanford Medicine',desc:'Stanford researchers share findings from clinical trials using VR environments to treat complicated grief.',url:'https://www.youtube.com/results?search_query=Stanford+Medicine+virtual+reality+therapy+grief'},
+  {cat:'ai',title:'How AI Is Transforming Bereavement Support',channel:'CBS Mornings',desc:'CBS reports on startups using machine learning to provide grief support at scale.',url:'https://www.youtube.com/results?search_query=CBS+Mornings+AI+bereavement+support'},
+  {cat:'avatar',title:'Meeting a Deceased Loved One Through Virtual Reality',channel:'Vice',desc:'Vice follows families who have used immersive VR experiences to reconnect with deceased relatives.',url:'https://www.youtube.com/results?search_query=Vice+deceased+loved+one+virtual+reality'},
+  {cat:'cloning',title:'Talking to the Dead: AI Voice Cloning After Loss',channel:'NBC News',desc:'NBC investigates services that clone the voice of a deceased person from audio recordings.',url:'https://www.youtube.com/results?search_query=NBC+News+AI+voice+cloning+deceased'},
+  {cat:'chatbot',title:'Replika and the Rise of AI Grief Companions',channel:'The Guardian',desc:'The Guardian examines Replika and similar apps used by bereaved people seeking connection after loss.',url:'https://www.youtube.com/results?search_query=Guardian+Replika+AI+grief+companion'},
+  {cat:'robotics',title:'Robotic Pets Helping People Cope With Bereavement',channel:'CNN',desc:'CNN looks at how lifelike robotic animals comfort grieving individuals in care settings.',url:'https://www.youtube.com/results?search_query=CNN+robotic+pets+bereavement+grief'}
 ];
+
+let VIDEOS = [...FALLBACK_VIDEOS];
 
 let activeCat = 'all';
 
@@ -264,9 +207,72 @@ function filterCat(c){
   render();
 }
 
+async function fetchVideos(){
+  const btn = document.getElementById('gtv-refresh');
+  const lbl = document.getElementById('lbl-status');
+  btn.disabled=true; btn.style.opacity='0.5';
+  lbl.innerHTML='<span class="gtv-spinner"></span>Searching for latest grief tech videos…';
+
+  const prompt=`Search YouTube and the web right now for the latest available videos (2024-2025) on these grief technology topics:
+- AI grief support and bereavement technology
+- Virtual reality grief therapy and memorials  
+- Grief avatars and digital afterlife
+- Grief chatbots and AI bereavement assistants
+- Digital cloning of deceased persons
+- Grief support and companion robots
+
+For each video found return a JSON array of 14-18 items. Each object must have:
+- title: exact video title (string)
+- channel: YouTube channel name (string)
+- desc: one sentence description max 20 words (string)
+- url: the direct YouTube watch URL e.g. https://www.youtube.com/watch?v=XXXXXXXXXXX (string)
+- cat: one of ai|vr|avatar|chatbot|cloning|robotics (string)
+
+Only include videos you found via web search with real YouTube URLs. Cover all cat values.
+Return ONLY a valid JSON array. No markdown, no explanation, no code fences.`;
+
+  try{
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:2000,
+        tools:[{type:'web_search_20250305',name:'web_search'}],
+        system:'You are a video researcher for a grief technology publication. Search the web and YouTube thoroughly to find real, currently available YouTube videos on grief technology topics. Return only confirmed real YouTube URLs you found via search. Return only valid JSON.',
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const data = await res.json();
+    const txt = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
+    const match = txt.replace(/```json|```/g,'').trim().match(/\[[\s\S]*\]/);
+    if(!match) throw new Error('No results');
+    const parsed = JSON.parse(match[0]);
+    const seen = new Set();
+    const fresh = parsed.filter(v=>{
+      if(!v.url||!v.title||seen.has(v.url)) return false;
+      if(!CAT[v.cat]) v.cat='ai';
+      seen.add(v.url); return true;
+    });
+    if(fresh.length>0){
+      VIDEOS = [...fresh, ...FALLBACK_VIDEOS.filter(f=>!seen.has(f.url))];
+      lbl.textContent='Updated ' + new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+    } else {
+      throw new Error('No valid results');
+    }
+  }catch(e){
+    VIDEOS = [...FALLBACK_VIDEOS];
+    lbl.textContent='Curated grief tech videos';
+  }
+  btn.disabled=false; btn.style.opacity='1';
+  render();
+}
+
 document.getElementById('gtv-date').textContent =
   new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
 render();
+fetchVideos();
+setInterval(fetchVideos, 7200000);
 </script>
 </body>
 </html>
