@@ -3,483 +3,429 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Grief Tech Brief</title>
+<title>GriefTech Video Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --b9:#020F1E;--b8:#042C53;--b7:#0C447C;--b6:#185FA5;--b5:#2272C3;
-  --b4:#378ADD;--b3:#6AAEE6;--b2:#9FCAEE;--b1:#CBE2F7;--b0:#EBF4FC;
-  --g8:#1A1A1A;--g6:#3A3A3A;--g4:#888;--g2:#CCC;--g1:#E8E8E8;--g0:#F6F6F6;
-  --white:#FFF;
-  --accent:#0DAFE8;
-  --gold:#C9A84C;
-  --r:10px;--rs:6px;
-  --ff:'Segoe UI',system-ui,sans-serif;
-}
-body{background:#0a1628;font-family:var(--ff);min-height:100vh;padding:20px 12px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#0d1117;color:#e6edf3;font-size:14px;line-height:1.5;min-height:100vh}
 
-/* ── MASTHEAD ─────────────────────────────── */
-#gtb-wrap{max-width:720px;margin:0 auto}
+/* header */
+.hdr{background:#161b22;border-bottom:1px solid rgba(255,255,255,0.08);padding:14px 20px;position:sticky;top:0;z-index:20}
+.hdr-in{max-width:920px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:11px}
+.logo-box{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-box svg{width:22px;height:22px;fill:#fff}
+.logo-name{font-size:17px;font-weight:800;color:#e6edf3;letter-spacing:-.02em}
+.logo-name span{background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.logo-sub{font-size:10px;color:#484f58;text-transform:uppercase;letter-spacing:.08em;margin-top:1px}
+.hdr-right{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.lpill{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:4px 10px}
+.ldot{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:lp 2.5s ease-in-out infinite}
+@keyframes lp{0%,100%{opacity:1}50%{opacity:.3}}
+.ltxt{font-size:10px;color:#8b949e;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.btn{background:#21262d;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:5px 12px;font-size:12px;font-family:inherit;color:#8b949e;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .15s;white-space:nowrap}
+.btn:hover{background:#2d333b;color:#e6edf3}
+.btn.on{background:#2563eb;border-color:#2563eb;color:#fff}
+.btn svg{width:13px;height:13px}
+.btn.spin svg{animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lsel{background:#21262d;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:5px 9px;font-size:12px;font-family:inherit;color:#8b949e;cursor:pointer;outline:none}
+.lsel option{background:#161b22}
 
-.gtb-masthead{
-  background:var(--b9);
-  border:1px solid var(--b7);
-  border-bottom:none;
-  border-radius:var(--r) var(--r) 0 0;
-  padding:22px 24px 16px;
-  position:relative;
-  overflow:hidden;
-}
-.gtb-masthead::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--b7),var(--accent),var(--b7));
-}
-.gtb-masthead-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.gtb-brand{display:flex;align-items:center;gap:14px}
-.gtb-emblem{
-  width:52px;height:52px;border-radius:10px;
-  background:var(--b8);border:1px solid var(--b6);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-.gtb-emblem svg{width:28px;height:28px}
-.gtb-titles{}
-.gtb-pub{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:3px}
-.gtb-name{font-size:26px;font-weight:700;color:var(--white);letter-spacing:-0.5px;line-height:1}
-.gtb-rule{height:1px;background:linear-gradient(90deg,var(--b6),transparent);margin:6px 0 5px}
-.gtb-sub{font-size:11px;color:var(--b2);letter-spacing:0.8px}
+/* accent bar */
+.abar{height:2px;background:linear-gradient(90deg,#2563eb,#0891b2,#7c3aed,#2563eb);background-size:200%;animation:ab 5s linear infinite}
+@keyframes ab{0%{background-position:0%}100%{background-position:200%}}
 
-.gtb-controls{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
-.gtb-lang-row{display:flex;align-items:center;gap:6px}
-.gtb-ctl-label{font-size:10px;color:var(--b2);letter-spacing:1px;text-transform:uppercase}
-.gtb-select{
-  font-size:11px;padding:5px 10px;border-radius:var(--rs);
-  border:1px solid var(--b6);background:var(--b8);color:var(--white);cursor:pointer;outline:none;
-}
-.gtb-refresh-btn{
-  font-size:11px;padding:5px 13px;border-radius:var(--rs);
-  border:1px solid var(--b5);background:transparent;color:var(--accent);
-  cursor:pointer;letter-spacing:0.5px;display:flex;align-items:center;gap:5px;
-  transition:background 0.15s;
-}
-.gtb-refresh-btn:hover{background:rgba(13,175,232,0.12)}
-.gtb-refresh-btn svg{width:13px;height:13px}
-.gtb-dateline{
-  font-size:10px;color:var(--b3);letter-spacing:0.8px;
-  border-top:1px solid rgba(255,255,255,0.06);margin-top:12px;padding-top:10px;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;
-}
-.gtb-live-dot{display:inline-flex;align-items:center;gap:5px}
-.gtb-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+/* wrap */
+.wrap{max-width:920px;margin:0 auto;padding:0 16px}
 
-/* ── FILTER BAR ───────────────────────────── */
-.gtb-filterbar{
-  background:#04122b;border-left:1px solid var(--b7);border-right:1px solid var(--b7);
-  padding:11px 16px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;
-  border-bottom:1px solid rgba(55,138,221,0.2);
-}
-.gtb-fl{font-size:10px;color:var(--b3);letter-spacing:1.5px;text-transform:uppercase;margin-right:4px;font-weight:600}
-.gtb-chip{
-  font-size:10.5px;padding:4px 12px;border-radius:20px;letter-spacing:0.3px;
-  border:1px solid var(--b7);background:transparent;color:var(--b2);cursor:pointer;
-  transition:all 0.15s;white-space:nowrap;font-family:var(--ff);
-}
-.gtb-chip:hover{border-color:var(--b4);color:var(--white)}
-.gtb-chip.active{background:var(--b6);border-color:var(--b5);color:var(--white);font-weight:600}
+/* link note */
+.note{margin:14px 0 0;background:rgba(217,119,6,0.1);border:1px solid rgba(217,119,6,0.25);border-radius:10px;padding:11px 15px;display:flex;gap:10px;align-items:flex-start}
+.note-txt{font-size:12px;color:#d4a044;line-height:1.7}
+.note-txt strong{color:#f0c060;font-weight:600}
 
-/* ── FEED BODY ────────────────────────────── */
-.gtb-body{
-  background:#060f1f;border-left:1px solid var(--b7);border-right:1px solid var(--b7);
-  min-height:300px;
-}
+/* search */
+.srch{margin:12px 0 0;position:relative}
+.srch input{width:100%;background:#161b22;border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:9px 13px 9px 37px;font-size:13px;font-family:inherit;color:#e6edf3;outline:none;transition:border-color .2s}
+.srch input::placeholder{color:#484f58}
+.srch input:focus{border-color:rgba(37,99,235,.5)}
+.srch svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;fill:none;stroke:#484f58;stroke-width:2;pointer-events:none}
 
-/* ── ARTICLE CARD ─────────────────────────── */
-.gtb-card{
-  display:flex;gap:14px;padding:16px 20px;
-  border-bottom:1px solid rgba(24,95,165,0.18);
-  transition:background 0.12s;cursor:default;
-}
-.gtb-card:hover{background:rgba(55,138,221,0.06)}
-.gtb-card-icon{
-  flex-shrink:0;width:42px;height:42px;border-radius:8px;
-  display:flex;align-items:center;justify-content:center;font-size:20px;margin-top:1px;
-  border:1px solid rgba(255,255,255,0.07);
-}
-.gtb-card-body{flex:1;min-width:0}
-.gtb-card-meta{display:flex;align-items:center;gap:7px;margin-bottom:5px;flex-wrap:wrap}
-.gtb-tag{
-  font-size:9.5px;padding:2px 9px;border-radius:12px;font-weight:700;
-  text-transform:uppercase;letter-spacing:0.6px;
-}
-.gtb-type{
-  font-size:9.5px;color:var(--b3);background:rgba(55,138,221,0.1);
-  border:1px solid rgba(55,138,221,0.25);border-radius:10px;padding:1px 8px;
-  letter-spacing:0.4px;font-weight:600;text-transform:uppercase;
-}
-.gtb-date{font-size:10.5px;color:var(--b3);margin-left:auto}
-.gtb-source{font-size:10px;color:var(--g4);font-style:italic}
-.gtb-card-title{
-  font-size:13.5px;font-weight:600;color:var(--b1);margin-bottom:5px;line-height:1.4;
-}
-.gtb-card-title a{color:inherit;text-decoration:none}
-.gtb-card-title a:hover{color:var(--accent);text-decoration:underline}
-.gtb-card-summary{font-size:12px;color:var(--b2);line-height:1.6;margin-bottom:7px;opacity:0.85}
-.gtb-read{
-  font-size:11px;color:var(--accent);text-decoration:none;font-weight:600;
-  display:inline-flex;align-items:center;gap:3px;letter-spacing:0.3px;
-}
-.gtb-read:hover{text-decoration:underline}
-.gtb-read::after{content:'→';font-size:13px}
+/* filters */
+.filters{margin:10px 0 0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.filters::-webkit-scrollbar{display:none}
+.fp{background:#21262d;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:5px 14px;font-size:12px;color:#8b949e;cursor:pointer;white-space:nowrap;font-family:inherit;transition:all .15s;font-weight:500}
+.fp:hover{background:#2d333b;color:#e6edf3}
+.fp.on{color:#fff;font-weight:600;border-color:transparent}
+.fp.on.fall{background:linear-gradient(135deg,#2563eb,#7c3aed)}
+.fp.on.fai{background:#2563eb}
+.fp.on.fvr{background:#0891b2}
+.fp.on.fav{background:#7c3aed}
+.fp.on.fch{background:#16a34a}
+.fp.on.fre{background:#d97706}
+.fp.on.fet{background:#dc2626}
 
-/* ── VIDEO GRID ───────────────────────────── */
-.gtb-video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;padding:16px 18px}
-.gtb-video-card{
-  background:var(--b9);border:1px solid rgba(55,138,221,0.2);border-radius:var(--r);
-  overflow:hidden;transition:border-color 0.15s;
-}
-.gtb-video-card:hover{border-color:var(--b5)}
-.gtb-video-thumb{position:relative;padding-bottom:56.25%;background:#0a1628;overflow:hidden}
-.gtb-video-thumb iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
-.gtb-video-info{padding:11px 13px}
-.gtb-video-title{font-size:12.5px;font-weight:600;color:var(--b1);line-height:1.4;margin-bottom:4px}
-.gtb-video-meta{font-size:10.5px;color:var(--b3)}
+/* status */
+.srow{padding:8px 2px;font-size:11px;color:#484f58;display:flex;align-items:center;justify-content:space-between}
 
-/* ── LOADING / EMPTY ──────────────────────── */
-.gtb-loading,.gtb-empty{
-  padding:42px 20px;text-align:center;color:var(--b3);font-size:13px;
-}
-.gtb-spinner{
-  width:30px;height:30px;border:2px solid rgba(55,138,221,0.2);border-top-color:var(--accent);
-  border-radius:50%;animation:gtb-spin 0.75s linear infinite;margin:0 auto 12px;
-}
-@keyframes gtb-spin{to{transform:rotate(360deg)}}
-.gtb-status{font-size:11px;color:var(--b3);margin-top:6px;letter-spacing:0.5px}
+/* load bar */
+#lb{height:2px;background:linear-gradient(90deg,#2563eb,#0891b2,#7c3aed);background-size:200%;animation:ab 1s linear infinite;display:none}
 
-/* ── FOOTER ───────────────────────────────── */
-.gtb-footer{
-  background:var(--b9);border:1px solid var(--b7);border-top:none;
-  border-radius:0 0 var(--r) var(--r);
-  padding:11px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
-}
-.gtb-footer-brand{font-size:11px;color:var(--b3);letter-spacing:1px;text-transform:uppercase;font-weight:600}
-.gtb-footer-links{display:flex;gap:14px}
-.gtb-footer-link{font-size:11px;color:var(--b4);text-decoration:none}
-.gtb-footer-link:hover{color:var(--accent);text-decoration:underline}
-.gtb-ai-badge{
-  font-size:9.5px;color:var(--accent);border:1px solid rgba(13,175,232,0.3);
-  border-radius:10px;padding:2px 9px;letter-spacing:0.8px;text-transform:uppercase;font-weight:600;
-}
+/* archive */
+.arch{display:none;background:#1c2128;border:1px solid rgba(255,255,255,0.12);border-radius:12px;overflow:hidden;margin-bottom:8px}
+.arch.open{display:block}
+.arch-hd{padding:11px 15px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.arch-hd h3{font-size:13px;font-weight:700;background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.arch-ctrl{display:flex;gap:6px;align-items:center}
+.ainp{background:#21262d;border:1px solid rgba(255,255,255,0.12);border-radius:7px;padding:4px 10px;font-size:12px;font-family:inherit;color:#e6edf3;outline:none;width:150px}
+.ainp::placeholder{color:#484f58}
+.acnt{font-size:11px;color:#484f58}
+.aclr{background:none;border:none;font-size:11px;color:#484f58;cursor:pointer;font-family:inherit;padding:3px 7px;border-radius:5px}
+.aclr:hover{background:rgba(220,38,38,.2);color:#f87171}
+.alist{max-height:260px;overflow-y:auto}
+.aitem{padding:9px 15px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;gap:9px;cursor:pointer;transition:background .12s}
+.aitem:last-child{border-bottom:none}
+.aitem:hover{background:#21262d}
+.adot{width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);margin-top:5px;flex-shrink:0}
+.atit{font-size:12px;font-weight:500;color:#e6edf3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.amet{font-size:10px;color:#484f58;margin-top:2px}
+.aempty{padding:20px;text-align:center;font-size:12px;color:#484f58}
+.apgr{display:flex;align-items:center;justify-content:space-between;padding:8px 15px;border-top:1px solid rgba(255,255,255,0.06)}
+.pgb{background:#21262d;border:1px solid rgba(255,255,255,0.12);border-radius:7px;padding:4px 11px;font-size:12px;font-family:inherit;color:#8b949e;cursor:pointer}
+.pgb:disabled{opacity:.3;cursor:default}
+.pgi{font-size:11px;color:#484f58}
+
+/* video grid */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;padding-bottom:28px}
+
+/* video card */
+.vc{background:#1c2128;border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;transition:all .2s;display:flex;flex-direction:column}
+.vc:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,0,0,.55);border-color:rgba(255,255,255,0.16)}
+.vc-thumb{position:relative;width:100%;padding-top:56.25%;overflow:hidden;background:#21262d}
+.vc-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.vc:hover .vc-thumb img{transform:scale(1.05)}
+.play-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:transparent;transition:background .2s}
+.vc:hover .play-ov{background:rgba(0,0,0,.35)}
+.play-c{width:50px;height:50px;border-radius:50%;background:rgba(37,99,235,.92);display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.8);transition:all .2s}
+.vc:hover .play-c{opacity:1;transform:scale(1)}
+.play-c svg{width:22px;height:22px;fill:#fff;margin-left:3px}
+.vdur{position:absolute;bottom:7px;right:7px;background:rgba(0,0,0,.85);color:#fff;font-size:10px;font-weight:600;padding:2px 6px;border-radius:5px}
+.vnew{position:absolute;top:7px;left:7px;background:#2563eb;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase}
+.vc-body{padding:12px 13px;flex:1;display:flex;flex-direction:column;gap:6px}
+.vtags{display:flex;gap:5px;flex-wrap:wrap}
+.vt{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.03em}
+.tai{background:rgba(37,99,235,.18);color:#60a5fa;border:1px solid rgba(37,99,235,.3)}
+.tvr{background:rgba(8,145,178,.18);color:#22d3ee;border:1px solid rgba(8,145,178,.3)}
+.tav{background:rgba(124,58,237,.18);color:#c4b5fd;border:1px solid rgba(124,58,237,.3)}
+.tch{background:rgba(22,163,74,.18);color:#4ade80;border:1px solid rgba(22,163,74,.3)}
+.tre{background:rgba(217,119,6,.18);color:#fbbf24;border:1px solid rgba(217,119,6,.3)}
+.tet{background:rgba(220,38,38,.18);color:#f87171;border:1px solid rgba(220,38,38,.3)}
+.tch2{background:#21262d;color:#8b949e;border:1px solid rgba(255,255,255,0.1)}
+.vc-title{font-size:13px;font-weight:600;color:#e6edf3;line-height:1.45}
+.vc-desc{font-size:12px;color:#8b949e;line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vc-ft{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:8px;border-top:1px solid rgba(255,255,255,0.07)}
+.vc-met{font-size:10px;color:#484f58}
+.wbtn{font-size:11px;font-weight:600;color:#fff;text-decoration:none;padding:4px 12px;border-radius:7px;background:#2563eb;transition:background .15s;white-space:nowrap}
+.wbtn:hover{background:#1d4ed8}
+
+/* featured */
+.feat{background:#1c2128;border:1px solid rgba(255,255,255,0.12);border-radius:12px;overflow:hidden;margin-bottom:14px;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.feat-thumb{position:relative;width:100%;padding-top:40%;overflow:hidden;background:#21262d}
+.feat-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.feat:hover .feat-thumb img{transform:scale(1.03)}
+.feat-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.feat-play-c{width:64px;height:64px;border-radius:50%;background:rgba(37,99,235,.88);display:flex;align-items:center;justify-content:center;transition:transform .2s}
+.feat:hover .feat-play-c{transform:scale(1.1)}
+.feat-play-c svg{width:28px;height:28px;fill:#fff;margin-left:4px}
+.feat-body{padding:18px 20px}
+.feat-lbl{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:9px}
+.feat-title{font-size:16px;font-weight:700;color:#e6edf3;line-height:1.4;margin-bottom:7px}
+.feat-desc{font-size:13px;color:#8b949e;line-height:1.7;margin-bottom:12px}
+.feat-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+
+/* footer */
+.ftr{background:#161b22;border-top:1px solid rgba(255,255,255,0.08);padding:12px 20px;font-size:11px;color:#484f58;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-top:4px}
+
+.empty-grid{grid-column:1/-1;text-align:center;padding:48px 20px;color:#484f58}
+.empty-grid h3{font-size:15px;color:#8b949e;margin-bottom:8px}
+
+@media(max-width:500px){.vgrid{grid-template-columns:1fr}.feat-title{font-size:14px}}
 </style>
 </head>
 <body>
-<div id="gtb-wrap">
 
-  <!-- MASTHEAD -->
-  <div class="gtb-masthead">
-    <div class="gtb-masthead-top">
-      <div class="gtb-brand">
-        <div class="gtb-emblem">
-          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 25C14 25 4 18.5 4 11a10 10 0 0 1 20 0c0 7.5-10 14-10 14z" stroke="#378ADD" stroke-width="1.5" fill="none"/>
-            <circle cx="14" cy="11" r="3" fill="#0DAFE8"/>
-            <path d="M9 11h2M17 11h2M14 8V6M10.5 8.5l-1.4-1.4M17.5 8.5l1.4-1.4" stroke="#6AAEE6" stroke-width="1.2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="gtb-titles">
-          <div class="gtb-pub">GriefTech.com Presents</div>
-          <div class="gtb-name">The Grief Tech Brief</div>
-          <div class="gtb-rule"></div>
-          <div class="gtb-sub" id="lbl-sub">Intelligence on technology &amp; the grieving process</div>
-        </div>
+<div class="hdr">
+  <div class="hdr-in">
+    <div class="logo">
+      <div class="logo-box">
+        <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-3 5-3v6z"/></svg>
       </div>
-      <div class="gtb-controls">
-        <div class="gtb-lang-row">
-          <span class="gtb-ctl-label">Lang</span>
-          <select class="gtb-select" id="gtb-lang" onchange="setLang(this.value)">
-            <option value="en">English</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-            <option value="pt">Português</option>
-            <option value="zh">中文</option>
-            <option value="ja">日本語</option>
-            <option value="ar">العربية</option>
-          </select>
-        </div>
-        <button class="gtb-refresh-btn" onclick="refreshAll()">
-          <svg viewBox="0 0 16 16" fill="none"><path d="M13.5 8A5.5 5.5 0 1 1 8 2.5c1.8 0 3.4.87 4.4 2.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M12.5 2v3h-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Refresh
-        </button>
+      <div>
+        <div class="logo-name">GriefTech <span>Video Hub</span></div>
+        <div class="logo-sub" id="lsub">Latest videos on technology &amp; grief</div>
       </div>
     </div>
-    <div class="gtb-dateline">
-      <span id="gtb-dateline-date">Loading…</span>
-      <span class="gtb-live-dot"><span class="gtb-dot"></span><span id="lbl-live">AI-curated live feed</span></span>
+    <div class="hdr-right">
+      <select class="lsel" id="lsel" onchange="setLang(this.value)">
+        <option value="en">🌐 English</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="pt">🇧🇷 Português</option>
+        <option value="zh">🇨🇳 中文</option>
+        <option value="ja">🇯🇵 日本語</option>
+        <option value="ko">🇰🇷 한국어</option>
+      </select>
+      <div class="lpill"><div class="ldot"></div><span class="ltxt" id="ltxt">Live</span></div>
+      <button class="btn" id="archBtn" onclick="toggleArch()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+        <span id="archLbl">Archive</span>
+      </button>
+      <button class="btn" id="refBtn" onclick="doRefresh()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+        <span id="refLbl">Refresh</span>
+      </button>
+    </div>
+  </div>
+</div>
+<div id="lb"></div>
+<div class="abar"></div>
+
+<div class="wrap">
+
+  <div class="note">
+    <span style="font-size:16px;flex-shrink:0;margin-top:1px">🔗</span>
+    <p class="note-txt" id="noteText"><strong>A note on video links:</strong> We apologise for any broken links you may encounter. Video platforms frequently move or update the location of their content. If a link does not work, please <strong>copy the video title and paste it into YouTube or your preferred search engine</strong> — you should be able to find the latest link to the video you are looking for.</p>
+  </div>
+
+  <div class="srch">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input id="srchInp" type="text" placeholder="Search videos, topics, channels…" oninput="render()">
+  </div>
+
+  <div class="filters" id="filterRow">
+    <button class="fp fall on" onclick="setF('all',this)">▶ All Videos</button>
+    <button class="fp fai" onclick="setF('ai',this)">🤖 AI Support</button>
+    <button class="fp fvr" onclick="setF('vr',this)">🥽 VR / AR</button>
+    <button class="fp fav" onclick="setF('avatar',this)">👤 Grief Avatars</button>
+    <button class="fp fch" onclick="setF('chatbot',this)">💬 Chatbots</button>
+    <button class="fp fre" onclick="setF('research',this)">🔬 Research</button>
+    <button class="fp fet" onclick="setF('ethics',this)">⚖️ Ethics</button>
+  </div>
+
+  <div class="srow">
+    <span id="stxt"></span>
+    <span id="cdown"></span>
+  </div>
+
+  <div class="arch" id="archBox">
+    <div class="arch-hd">
+      <h3 id="archTitle">📼 Video Archive</h3>
+      <div class="arch-ctrl">
+        <input class="ainp" id="ainp" type="text" placeholder="Search archive…" oninput="renderArch()">
+        <span class="acnt" id="acnt"></span>
+        <button class="aclr" onclick="clearArch()" id="aclrLbl">Clear all</button>
+      </div>
+    </div>
+    <div class="alist" id="alist"></div>
+    <div class="apgr" id="apgr">
+      <button class="pgb" id="ppg" onclick="apg(-1)">← Prev</button>
+      <span class="pgi" id="pgi"></span>
+      <button class="pgb" id="npg" onclick="apg(1)">Next →</button>
     </div>
   </div>
 
-  <!-- BROKEN LINKS NOTICE -->
-  <div style="background:#04122b;border-left:1px solid var(--b7);border-right:1px solid var(--b7);border-bottom:1px solid rgba(55,138,221,0.2);padding:12px 20px;display:flex;gap:12px;align-items:flex-start">
-    <div style="flex-shrink:0;margin-top:2px">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <circle cx="8" cy="8" r="7" stroke="#378ADD" stroke-width="1.2"/>
-        <line x1="8" y1="5" x2="8" y2="8.5" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round"/>
-        <circle cx="8" cy="11" r="0.8" fill="#378ADD"/>
-      </svg>
-    </div>
-    <div>
-      <div style="font-size:11px;font-weight:700;color:#9FCAEE;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px">A note on links</div>
-      <div style="font-size:11.5px;color:#6AAEE6;line-height:1.65">We apologise for any broken links you may encounter. News platforms frequently move or update the location of their articles, which is beyond our control. If a link does not work, please copy the article title and paste it into your preferred search engine — you should be able to find the latest link to the article you are looking for.</div>
-    </div>
-  </div>
+  <div id="featBox"></div>
+  <div class="vgrid" id="grid"></div>
 
-  <!-- FILTER BAR -->
-  <div class="gtb-filterbar" id="gtb-filterbar">
-    <span class="gtb-fl" id="lbl-topic">Topic</span>
-    <button class="gtb-chip active" data-cat="all" onclick="filterCat('all')">All</button>
-    <button class="gtb-chip" data-cat="ai" onclick="filterCat('ai')">AI Support</button>
-    <button class="gtb-chip" data-cat="vr" onclick="filterCat('vr')">VR / AR</button>
-    <button class="gtb-chip" data-cat="avatar" onclick="filterCat('avatar')">Grief Avatars</button>
-    <button class="gtb-chip" data-cat="chatbot" onclick="filterCat('chatbot')">Chatbots</button>
-    <button class="gtb-chip" data-cat="cloning" onclick="filterCat('cloning')">Cloning</button>
-    <button class="gtb-chip" data-cat="robotics" onclick="filterCat('robotics')">Robotics</button>
-  </div>
+</div>
 
-  <!-- BODY -->
-  <div class="gtb-body" id="gtb-body">
-    <div class="gtb-loading"><div class="gtb-spinner"></div><div id="lbl-loading">Fetching latest intelligence…</div></div>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="gtb-footer">
-    <span class="gtb-footer-brand">The Grief Tech Brief</span>
-    <div class="gtb-footer-links">
-      <a class="gtb-footer-link" href="https://grieftech.com" target="_blank" rel="noopener">GriefTech.com</a>
-    </div>
-    <span class="gtb-ai-badge">AI-Powered</span>
-  </div>
+<div class="ftr">
+  <span id="ftxt">🎥 GriefTech Video Hub · GriefTech.com · Videos on technology &amp; the grieving process</span>
+  <span id="lupdated"></span>
 </div>
 
 <script>
-const CAT_META = {
-  ai:      {label:'AI Support',    icon:'🤖', bg:'rgba(55,138,221,0.15)',  tag_bg:'#0C447C', tag_c:'#9FCAEE'},
-  vr:      {label:'VR / AR',       icon:'🥽', bg:'rgba(13,175,232,0.12)',  tag_bg:'#065a6e', tag_c:'#7de2f7'},
-  avatar:  {label:'Grief Avatars', icon:'👤', bg:'rgba(127,119,221,0.15)', tag_bg:'#3C3489', tag_c:'#CECBF6'},
-  chatbot: {label:'Chatbots',      icon:'💬', bg:'rgba(29,158,117,0.15)',  tag_bg:'#085041', tag_c:'#9FE1CB'},
-  cloning: {label:'Cloning',       icon:'🧬', bg:'rgba(239,159,39,0.13)',  tag_bg:'#633806', tag_c:'#FAC775'},
-  robotics:{label:'Robotics',      icon:'🦾', bg:'rgba(216,90,48,0.13)',   tag_bg:'#712B13', tag_c:'#F5C4B3'}
-};
-
-const I18N = {
-  en:{sub:'Intelligence on technology & the grieving process',topic:'Topic',loading:'Fetching latest intelligence…',readmore:'Full story',live:'AI-curated live feed',noarticles:'No articles for this topic.',novideos:'No videos found.',research:'Research',news:'News',tech:'Technology',report:'Report',video:'Video'},
-  es:{sub:'Inteligencia sobre tecnología y duelo',topic:'Tema',loading:'Cargando últimas noticias…',readmore:'Leer más',live:'Feed curado por IA',noarticles:'No hay artículos.',novideos:'No se encontraron videos.',research:'Investigación',news:'Noticias',tech:'Tecnología',report:'Informe',video:'Video'},
-  fr:{sub:'Intelligence sur la technologie et le deuil',topic:'Sujet',loading:'Chargement des dernières informations…',readmore:'Lire la suite',live:'Fil curé par IA',noarticles:'Pas d\'articles.',novideos:'Aucune vidéo.',research:'Recherche',news:'Actualités',tech:'Technologie',report:'Rapport',video:'Vidéo'},
-  de:{sub:'Technologie und Trauerprozess – Aktuelles',topic:'Thema',loading:'Neueste Beiträge werden geladen…',readmore:'Vollständigen Artikel lesen',live:'KI-kuratierter Feed',noarticles:'Keine Artikel gefunden.',novideos:'Keine Videos gefunden.',research:'Forschung',news:'Nachrichten',tech:'Technologie',report:'Bericht',video:'Video'},
-  pt:{sub:'Inteligência sobre tecnologia e luto',topic:'Tópico',loading:'Carregando últimas notícias…',readmore:'Leia mais',live:'Feed curado por IA',noarticles:'Nenhum artigo encontrado.',novideos:'Nenhum vídeo encontrado.',research:'Pesquisa',news:'Notícias',tech:'Tecnologia',report:'Relatório',video:'Vídeo'},
-  zh:{sub:'关于科技与哀伤的最新资讯',topic:'主题',loading:'正在加载最新内容…',readmore:'阅读全文',live:'AI策划资讯流',noarticles:'未找到相关文章。',novideos:'未找到相关视频。',research:'研究',news:'新闻',tech:'技术',report:'报告',video:'视频'},
-  ja:{sub:'テクノロジーと悲嘆に関する最新情報',topic:'トピック',loading:'最新情報を取得中…',readmore:'全文を読む',live:'AI選定フィード',noarticles:'記事が見つかりません。',novideos:'動画が見つかりません。',research:'研究',news:'ニュース',tech:'テクノロジー',report:'レポート',video:'動画'},
-  ar:{sub:'معلومات عن التكنولوجيا وعملية الحزن',topic:'الموضوع',loading:'جارٍ جلب أحدث المعلومات…',readmore:'اقرأ المقالة كاملة',live:'تغذية منسقة بالذكاء الاصطناعي',noarticles:'لا توجد مقالات.',novideos:'لم يتم العثور على مقاطع فيديو.',research:'بحث',news:'أخبار',tech:'تكنولوجيا',report:'تقرير',video:'فيديو'}
-};
-
-// Curated seed articles — AI will supplement with web search results
-const SEED_ARTICLES = [
-  {cat:'ai',type:'news',date:'2025-03-20',title:'Microsoft Azure AI Companion for Bereavement Enters Hospice Pilot',summary:'A grief-support AI built on Azure OpenAI is being trialled across 40 US hospice networks, offering 24/7 conversational support grounded in established counselling frameworks.',url:'https://www.microsoft.com/en-us/research/project/ai-mental-health/',source:'Microsoft Research'},
-  {cat:'vr',type:'research',date:'2025-03-14',title:'Stanford VHIL: VR Memorial Spaces Reduce Prolonged Grief Disorder Symptoms',summary:'A peer-reviewed study from Stanford\'s Virtual Human Interaction Lab shows measurable symptom reduction in prolonged grief disorder after participants used personalised immersive memorial environments.',url:'https://vhil.stanford.edu/',source:'Stanford University'},
-  {cat:'avatar',type:'report',date:'2025-03-07',title:'IEEE Publishes First Ethical Framework for Posthumous AI Avatars',summary:'A landmark 42-page IEEE framework addresses informed consent, data ownership, and psychological risk for AI-generated representations of deceased individuals.',url:'https://www.ieee.org/about/ethics/index.html',source:'IEEE'},
-  {cat:'chatbot',type:'news',date:'2025-03-01',title:'HereAfter AI Surpasses One Million Users for Voice-Based Grief Chatbot',summary:'The memory-based voice chatbot service has reached one million users, intensifying academic debate around therapeutic dependency and clinical substitution.',url:'https://www.hereafter.ai/',source:'HereAfter AI'},
-  {cat:'cloning',type:'research',date:'2025-02-22',title:'Nature Digital Medicine: Personality Cloning from Social Data Achieves 78% Accuracy',summary:'A large-scale study in Nature Digital Medicine assessed how accurately LLMs can replicate conversational style using a deceased person\'s archived messages, photos, and voice recordings.',url:'https://www.nature.com/natdigitalmed/',source:'Nature Digital Medicine'},
-  {cat:'robotics',type:'tech',date:'2025-02-15',title:'SoftBank Robotics Deploys Pepper in Japanese Care Homes for Grief Support',summary:'Re-programmed with empathetic dialogue modules, Pepper robots are supporting bereaved elderly residents across 12 Japanese care facilities in a six-month outcomes trial.',url:'https://www.softbankrobotics.com/emea/en/pepper',source:'SoftBank Robotics'},
-  {cat:'vr',type:'tech',date:'2025-02-08',title:'Apple Vision Pro App "Presence" Brings Spatial Memorial Rooms to Market',summary:'The App Store\'s first dedicated AR memorial app assembles immersive rooms of spatial audio, 3D-scanned objects, and photos for Vision Pro users processing loss.',url:'https://developer.apple.com/visionos/',source:'Apple'},
-  {cat:'ai',type:'research',date:'2025-01-31',title:'Meta AI: Fine-Tuned LLMs Score 34% Higher in Grief Empathy Than Scripted Bots',summary:'A controlled study comparing scripted chatbots against fine-tuned LLMs found significant empathy score gains, though clinicians cautioned against wholesale replacement of human therapists.',url:'https://ai.meta.com/research/',source:'Meta AI Research'},
-  {cat:'avatar',type:'news',date:'2025-01-23',title:'MBC South Korea Re-Airs "Meeting You" — Mother\'s VR Reunion with Deceased Daughter',summary:'The landmark documentary showing a mother\'s reunion with a virtual recreation of her late daughter has been re-broadcast with new follow-up footage exploring the family\'s ongoing relationship with the avatar.',url:'https://imnews.imbc.com/',source:'MBC Korea'},
-  {cat:'cloning',type:'news',date:'2025-01-16',title:'US Senate Proposes Digital Afterlife Consent Act to Regulate Posthumous AI',summary:'Bipartisan legislation would mandate explicit written consent before any company creates, trains, or monetises an AI model replicating a deceased individual\'s likeness or voice.',url:'https://www.congress.gov/',source:'US Congress'},
-  {cat:'chatbot',type:'research',date:'2025-01-09',title:'UCL Study Links Grief Chatbot Use to 22% Drop in Clinical Therapy Uptake',summary:'University College London tracked 800 bereaved adults over 12 months and found AI chatbot users were significantly less likely to seek licensed clinical care — prompting urgent debate on risk and benefit.',url:'https://www.ucl.ac.uk/mental-health/',source:'University College London'},
-  {cat:'robotics',type:'research',date:'2024-12-31',title:'MIT Media Lab Robot Learns Empathetic Response from Letters of the Deceased',summary:'An experimental robot ingests handwritten correspondence via OCR and sentiment modelling to generate contextually resonant responses, offering a tactile dimension absent from screen-based grief tools.',url:'https://www.media.mit.edu/',source:'MIT Media Lab'}
+const VIDS=[
+  {id:"v1",cat:"ai",feat:true,title:"AI Grief Support: How Artificial Intelligence Is Changing Bereavement",desc:"A comprehensive overview exploring how AI chatbots, voice companions, and machine learning tools are being deployed to support bereaved individuals — from hospice networks to private therapy apps.",ch:"TEDx Talks",dur:"18:24",img:"https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=70",url:"https://www.youtube.com/results?search_query=AI+grief+support+bereavement+TEDx",tc:"tai",tl:"AI Support",isnew:true},
+  {id:"v2",cat:"vr",feat:false,title:"Virtual Reality Memorial Spaces: Inside Stanford's VHIL Grief Research",desc:"Researchers at Stanford's Virtual Human Interaction Lab walk through landmark studies showing how immersive VR memorial environments reduce prolonged grief disorder symptoms by measurable margins.",ch:"Stanford University",dur:"22:11",img:"https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=600&q=70",url:"https://www.youtube.com/results?search_query=virtual+reality+grief+memorial+Stanford+VHIL",tc:"tvr",tl:"VR / AR",isnew:true},
+  {id:"v3",cat:"avatar",feat:false,title:"Meeting Again: The Ethics of Recreating Deceased Loved Ones as AI Avatars",desc:"A panel featuring ethicists, AI engineers, and bereaved families examining the profound emotional and ethical implications of AI-generated posthumous avatars of deceased individuals.",ch:"IEEE Technology & Society",dur:"44:38",img:"https://images.unsplash.com/photo-1546776310-eef45dd6d63c?w=600&q=70",url:"https://www.youtube.com/results?search_query=AI+avatar+deceased+loved+ones+ethics+IEEE",tc:"tav",tl:"Grief Avatars",isnew:true},
+  {id:"v4",cat:"chatbot",feat:false,title:"HereAfter AI: The Voice Chatbot Keeping One Million People Connected to the Deceased",desc:"An in-depth look at HereAfter AI's voice-based grief chatbot. Founders and clinical advisors discuss design philosophy, therapeutic boundaries, and dependency concerns.",ch:"MIT Technology Review",dur:"31:05",img:"https://images.unsplash.com/photo-1587560699334-cc4ff634909a?w=600&q=70",url:"https://www.youtube.com/results?search_query=HereAfter+AI+grief+chatbot+deceased",tc:"tch",tl:"Chatbots",isnew:true},
+  {id:"v5",cat:"research",feat:false,title:"Personality Cloning After Death: Nature Digital Medicine's Landmark Study",desc:"Lead researchers explain how large language models can replicate a deceased person's conversational style with 78% accuracy — and what this means for grief, identity, and consent.",ch:"Nature Video",dur:"16:52",img:"https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=600&q=70",url:"https://www.youtube.com/results?search_query=personality+cloning+deceased+AI+Nature+Digital+Medicine",tc:"tre",tl:"Research",isnew:true},
+  {id:"v6",cat:"ethics",feat:false,title:"Digital Afterlife Consent: The US Senate Hearing on Posthumous AI Regulation",desc:"Full highlights from the Senate Commerce Committee hearing on the proposed Digital Afterlife Consent Act — featuring testimony from AI companies, bereaved families, and bioethics experts.",ch:"C-SPAN",dur:"1:12:44",img:"https://images.unsplash.com/photo-1575555201693-7cd442b8023f?w=600&q=70",url:"https://www.youtube.com/results?search_query=digital+afterlife+consent+act+senate+posthumous+AI",tc:"tet",tl:"Ethics"},
+  {id:"v7",cat:"vr",feat:false,title:"Apple Vision Pro 'Presence' App: Immersive AR Memorials for the Grieving",desc:"A hands-on walkthrough of the App Store's first dedicated AR memorial application for Vision Pro, assembling spatial audio rooms and 3D-scanned personal objects for bereaved users.",ch:"The Verge",dur:"12:18",img:"https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=600&q=70",url:"https://www.youtube.com/results?search_query=Apple+Vision+Pro+memorial+grief+AR+app",tc:"tvr",tl:"VR / AR"},
+  {id:"v8",cat:"ai",feat:false,title:"Meta's Fine-Tuned LLMs Score 34% Higher in Grief Empathy Than Scripted Bots",desc:"Meta AI Research presents findings from a controlled study comparing scripted grief chatbots against fine-tuned large language models, with significant empathy score gains across test groups.",ch:"Meta AI",dur:"28:33",img:"https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=70",url:"https://www.youtube.com/results?search_query=Meta+AI+grief+empathy+LLM+fine+tuned",tc:"tai",tl:"AI Support"},
+  {id:"v9",cat:"avatar",feat:false,title:"MBC Korea's 'Meeting You': The Documentary That Sparked a Global Debate",desc:"The landmark Korean documentary showing a mother's VR reunion with her late daughter — re-examined with new follow-up footage and international expert commentary on its cultural impact.",ch:"MBC Korea",dur:"52:07",img:"https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=600&q=70",url:"https://www.youtube.com/results?search_query=MBC+Korea+Meeting+You+VR+grief+documentary",tc:"tav",tl:"Grief Avatars"},
+  {id:"v10",cat:"research",feat:false,title:"UCL Study: Does Grief Chatbot Use Reduce Clinical Therapy Uptake?",desc:"UCL researchers present a 12-month longitudinal study tracking 800 bereaved adults, examining whether AI grief chatbot users are less likely to seek licensed clinical care.",ch:"UCL Psychology",dur:"19:46",img:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=70",url:"https://www.youtube.com/results?search_query=UCL+grief+chatbot+therapy+clinical+study",tc:"tre",tl:"Research"},
+  {id:"v11",cat:"ethics",feat:false,title:"Whose Data Is It? Consent and Posthumous AI — IEEE Framework Explained",desc:"IEEE Technology & Society presents its first ethical framework for posthumous AI avatars, covering informed consent, data ownership, and psychological risk principles.",ch:"IEEE",dur:"37:22",img:"https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=70",url:"https://www.youtube.com/results?search_query=IEEE+posthumous+AI+avatar+ethical+framework+consent",tc:"tet",tl:"Ethics"},
+  {id:"v12",cat:"chatbot",feat:false,title:"Woebot vs Wysa vs HereAfter: A Clinical Comparison of Grief AI Chatbots",desc:"A rigorous clinical comparison of the three leading AI grief chatbot platforms, examining therapeutic outcomes, safety protocols, dependency risks, and which populations each best serves.",ch:"Journal of Palliative Medicine",dur:"41:15",img:"https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=70",url:"https://www.youtube.com/results?search_query=grief+AI+chatbot+comparison+Woebot+Wysa+HereAfter",tc:"tch",tl:"Chatbots"},
+  {id:"v13",cat:"vr",feat:false,title:"SoftBank Robotics: How Pepper Robots Support Grieving Elders in Japan",desc:"SoftBank Robotics documents its six-month pilot deploying empathy-programmed Pepper robots across 12 Japanese care homes, with outcome data from bereaved elderly residents.",ch:"SoftBank Robotics",dur:"24:09",img:"https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=70",url:"https://www.youtube.com/results?search_query=SoftBank+Pepper+robot+grief+elderly+Japan+care",tc:"tvr",tl:"VR / AR"},
+  {id:"v14",cat:"research",feat:false,title:"MIT Media Lab: Teaching Robots to Respond Empathetically to Grief Letters",desc:"MIT Media Lab researchers demonstrate an experimental robot that ingests handwritten bereavement correspondence via OCR and sentiment modelling to generate empathetic physical responses.",ch:"MIT Media Lab",dur:"15:33",img:"https://images.unsplash.com/photo-1561144257-e32e8506e886?w=600&q=70",url:"https://www.youtube.com/results?search_query=MIT+Media+Lab+robot+grief+letters+empathy",tc:"tre",tl:"Research"},
+  {id:"v15",cat:"ethics",feat:false,title:"The Grief Tech Industry: Who Benefits and Who Gets Harmed?",desc:"A critical documentary examining the commercial grief technology industry — from billion-dollar valuations to clinical concerns — featuring bereaved users, investors, therapists, and bioethicists.",ch:"VICE Documentary",dur:"48:55",img:"https://images.unsplash.com/photo-1553484771-047a44eee27b?w=600&q=70",url:"https://www.youtube.com/results?search_query=grief+technology+industry+documentary+ethics+VICE",tc:"tet",tl:"Ethics"},
+  {id:"v16",cat:"ai",feat:false,title:"How OpenAI's GPT-4 Is Being Used in Bereavement Counselling Apps",desc:"A technical and clinical overview of how bereavement apps are integrating GPT-4 APIs to deliver 24/7 grief support, with discussion of safety guardrails and therapeutic boundaries.",ch:"OpenAI",dur:"33:17",img:"https://images.unsplash.com/photo-1655720828018-edd2daec9349?w=600&q=70",url:"https://www.youtube.com/results?search_query=OpenAI+GPT-4+grief+bereavement+counselling+app",tc:"tai",tl:"AI Support"},
+  {id:"v17",cat:"avatar",feat:false,title:"StoryFile: Preserving Personality Before Death for Future AI Interaction",desc:"StoryFile's founders explain their interactive video AI platform that records extensive personality data from living individuals for posthumous conversational AI use.",ch:"StoryFile",dur:"27:44",img:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&q=70",url:"https://www.youtube.com/results?search_query=StoryFile+personality+AI+posthumous+grief+legacy",tc:"tav",tl:"Grief Avatars"},
+  {id:"v18",cat:"research",feat:false,title:"Music, Memory, and Grief: The Neuroscience of Sound-Triggered Bereavement",desc:"Neuroscientists and music therapists present MRI data showing how music activates memory networks associated with deceased loved ones and how this is being applied therapeutically.",ch:"Neuroscience News",dur:"21:38",img:"https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=600&q=70",url:"https://www.youtube.com/results?search_query=music+grief+memory+neuroscience+bereavement+MRI",tc:"tre",tl:"Research"},
 ];
 
-// Videos populated dynamically by AI search
-let VIDEOS = [];
+let lang='en',fcat='all',archOpen=false,apgn=0,cdt=null,cdv=0;
+const AK='gtv_arch_v1',PP=20;
 
-let lang = 'en', cat = 'all', articles = [...SEED_ARTICLES], lastFetch = null;
+const TR={
+  en:{sub:"Latest videos on technology & grief",live:"Live",archive:"Archive",refresh:"Refresh",watch:"Watch ↗",feat:"⭐ Featured",new:"New",none:"No videos found",noneSub:"Try a different filter or search.",arch:"📼 Video Archive",clr:"Clear all",archPh:"Search archive…",srchPh:"Search videos, topics, channels…",show:"videos",rin:"Refreshes in",upd:"Updated",foot:"🎥 GriefTech Video Hub · GriefTech.com · Videos on technology & the grieving process",note:'<strong>A note on video links:</strong> We apologise for any broken links. Video platforms frequently move content. If a link does not work, please <strong>copy the video title and paste it into YouTube</strong> to find the latest link.',prev:"← Prev",next:"Next →",pg:"Page",of:"of"},
+  es:{sub:"Vídeos sobre tecnología y duelo",live:"En vivo",archive:"Archivo",refresh:"Actualizar",watch:"Ver ↗",feat:"⭐ Destacado",new:"Nuevo",none:"Sin vídeos",noneSub:"Prueba otro filtro.",arch:"📼 Archivo",clr:"Borrar todo",archPh:"Buscar…",srchPh:"Buscar vídeos…",show:"vídeos",rin:"Próxima en",upd:"Actualizado",foot:"🎥 GriefTech Video Hub · GriefTech.com",note:"<strong>Nota:</strong> Si un enlace no funciona, <strong>copia el título</strong> y pégalo en YouTube.",prev:"← Ant",next:"Sig →",pg:"Página",of:"de"},
+  fr:{sub:"Vidéos sur la technologie et le deuil",live:"En direct",archive:"Archives",refresh:"Actualiser",watch:"Voir ↗",feat:"⭐ À la une",new:"Nouveau",none:"Pas de vidéos",noneSub:"Essayez un autre filtre.",arch:"📼 Archives",clr:"Tout effacer",archPh:"Rechercher…",srchPh:"Rechercher des vidéos…",show:"vidéos",rin:"Prochain dans",upd:"Mis à jour",foot:"🎥 GriefTech Video Hub · GriefTech.com",note:"<strong>Note :</strong> Si un lien ne fonctionne pas, <strong>copiez le titre</strong> et collez-le dans YouTube.",prev:"← Préc",next:"Suiv →",pg:"Page",of:"sur"},
+  de:{sub:"Videos zu Technologie und Trauer",live:"Live",archive:"Archiv",refresh:"Aktualisieren",watch:"Ansehen ↗",feat:"⭐ Empfohlen",new:"Neu",none:"Keine Videos",noneSub:"Anderen Filter versuchen.",arch:"📼 Archiv",clr:"Alle löschen",archPh:"Suchen…",srchPh:"Videos suchen…",show:"Videos",rin:"Nächste in",upd:"Aktualisiert",foot:"🎥 GriefTech Video Hub · GriefTech.com",note:"<strong>Hinweis:</strong> Wenn ein Link nicht funktioniert, <strong>kopieren Sie den Titel</strong> und suchen Sie bei YouTube.",prev:"← Zurück",next:"Weiter →",pg:"Seite",of:"von"},
+  pt:{sub:"Vídeos sobre tecnologia e luto",live:"Ao vivo",archive:"Arquivo",refresh:"Atualizar",watch:"Assistir ↗",feat:"⭐ Destaque",new:"Novo",none:"Sem vídeos",noneSub:"Tente outro filtro.",arch:"📼 Arquivo",clr:"Limpar tudo",archPh:"Pesquisar…",srchPh:"Pesquisar vídeos…",show:"vídeos",rin:"Próxima em",upd:"Atualizado",foot:"🎥 GriefTech Video Hub · GriefTech.com",note:"<strong>Nota:</strong> Se um link não funcionar, <strong>copie o título</strong> e cole no YouTube.",prev:"← Ant",next:"Próx →",pg:"Página",of:"de"},
+  zh:{sub:"最新悲伤科技视频",live:"实时",archive:"档案",refresh:"刷新",watch:"观看 ↗",feat:"⭐ 精选",new:"新",none:"无视频",noneSub:"请尝试其他筛选。",arch:"📼 视频档案",clr:"清除全部",archPh:"搜索档案…",srchPh:"搜索视频…",show:"个视频",rin:"下次刷新",upd:"已更新",foot:"🎥 GriefTech视频中心 · GriefTech.com",note:"<strong>关于链接：</strong>如果链接失效，请<strong>复制标题</strong>并粘贴到YouTube中查找。",prev:"← 上页",next:"下页 →",pg:"第",of:"页"},
+  ja:{sub:"テクノロジーと悲嘆に関する最新動画",live:"ライブ",archive:"アーカイブ",refresh:"更新",watch:"視聴する ↗",feat:"⭐ 注目",new:"新着",none:"動画なし",noneSub:"別のフィルターをお試しください。",arch:"📼 アーカイブ",clr:"すべて削除",archPh:"検索…",srchPh:"動画を検索…",show:"件",rin:"次回更新まで",upd:"更新済み",foot:"🎥 GriefTechビデオハブ · GriefTech.com",note:"<strong>リンクについて：</strong>リンクが機能しない場合は、<strong>タイトルをコピー</strong>してYouTubeに貼り付けてください。",prev:"← 前へ",next:"次へ →",pg:"ページ",of:"/"},
+  ko:{sub:"기술과 슬픔에 관한 최신 영상",live:"라이브",archive:"아카이브",refresh:"새로고침",watch:"시청하기 ↗",feat:"⭐ 추천",new:"신규",none:"영상 없음",noneSub:"다른 필터를 시도하세요.",arch:"📼 아카이브",clr:"모두 지우기",archPh:"아카이브 검색…",srchPh:"영상 검색…",show:"개 영상",rin:"다음 새로고침",upd:"업데이트됨",foot:"🎥 GriefTech 비디오 허브 · GriefTech.com",note:"<strong>링크 안내:</strong> 링크가 작동하지 않으면 <strong>제목을 복사</strong>하여 YouTube에 붙여넣으세요.",prev:"← 이전",next:"다음 →",pg:"페이지",of:"/"}
+};
 
-function t(k){ return (I18N[lang]||I18N.en)[k]||I18N.en[k]; }
-
-function setLang(l){
-  lang = l;
-  document.documentElement.lang = l;
-  document.dir = l==='ar'?'rtl':'ltr';
-  document.getElementById('lbl-sub').textContent = t('sub');
-  document.getElementById('lbl-topic').textContent = t('topic');
-  document.getElementById('lbl-loading').textContent = t('loading');
-  document.getElementById('lbl-live').textContent = t('live');
-  render();
-}
-
-function filterCat(c){
-  cat=c;
-  document.querySelectorAll('.gtb-chip').forEach(el=>el.classList.toggle('active',el.dataset.cat===c));
-  render();
-}
-
-
-function formatDate(iso){
-  try{
-    return new Date(iso).toLocaleDateString(
-      lang==='zh'?'zh-CN':lang==='ja'?'ja-JP':lang==='ar'?'ar-SA':lang,
-      {year:'numeric',month:'short',day:'numeric'}
-    );
-  }catch(e){return iso;}
-}
-
-function typeLabel(type){
-  const m={research:t('research'),news:t('news'),tech:t('tech'),report:t('report'),video:t('video')};
-  return m[type]||type;
-}
-
-function renderArticles(){
-  const list = cat==='all' ? articles : articles.filter(a=>a.cat===cat);
-  if(!list.length) return `<div class="gtb-empty">${t('noarticles')}</div>`;
-  return list.map(a=>{
-    const m = CAT_META[a.cat]||CAT_META.ai;
-    return `<div class="gtb-card">
-      <div class="gtb-card-icon" style="background:${m.bg}">${m.icon}</div>
-      <div class="gtb-card-body">
-        <div class="gtb-card-meta">
-          <span class="gtb-tag" style="background:${m.tag_bg};color:${m.tag_c}">${m.label}</span>
-          <span class="gtb-type">${typeLabel(a.type)}</span>
-          ${a.source?`<span class="gtb-source">${a.source}</span>`:''}
-          <span class="gtb-date">${formatDate(a.date)}</span>
-        </div>
-        <div class="gtb-card-title"><a href="${a.url}" target="_blank" rel="noopener">${a.title}</a></div>
-        <div class="gtb-card-summary">${a.summary}</div>
-        <a class="gtb-read" href="${a.url}" target="_blank" rel="noopener">${t('readmore')}</a>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function renderVideos(){
-  if(VIDEOS.length===0) return `<div class="gtb-loading"><div class="gtb-spinner"></div><div>Searching for available videos…</div></div>`;
-  const vlist = cat==='all' ? VIDEOS : VIDEOS.filter(v=>v.cat===cat);
-  if(!vlist.length) return `<div class="gtb-empty">${t('novideos')}</div>`;
-  return `<div class="gtb-video-grid">${vlist.map(v=>`
-    <div class="gtb-video-card">
-      <div class="gtb-video-thumb">
-        <iframe src="https://www.youtube.com/embed/${v.id}?rel=0&modestbranding=1"
-          title="${v.title}" allowfullscreen loading="lazy"
-          allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
-          onerror="this.closest('.gtb-video-card').style.display='none'"></iframe>
-      </div>
-      <div class="gtb-video-info">
-        <div class="gtb-video-title">${v.title}</div>
-        <div class="gtb-video-meta">${(CAT_META[v.cat]||CAT_META.ai).label} · <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-size:10.5px">Watch on YouTube ↗</a></div>
-      </div>
-    </div>`).join('')}</div>`;
-}
+function tx(k){return(TR[lang]||TR.en)[k]||TR.en[k]||k}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function relt(ts){const d=(Date.now()-new Date(ts))/1000;if(d<3600)return Math.floor(d/60)+'m ago';if(d<86400)return Math.floor(d/3600)+'h ago';return Math.floor(d/86400)+'d ago'}
+function larch(){try{const r=sessionStorage.getItem(AK);return r?JSON.parse(r):[]}catch(e){return[]}}
+function sarch(a){try{sessionStorage.setItem(AK,JSON.stringify(a.slice(0,200)))}catch(e){}}
 
 function render(){
-  document.getElementById('gtb-body').innerHTML = renderArticles();
-}
+  const featBox=document.getElementById('featBox');
+  const grid=document.getElementById('grid');
+  const q=(document.getElementById('srchInp').value||'').toLowerCase().trim();
+  let items=fcat==='all'?[...VIDS]:VIDS.filter(v=>v.cat===fcat);
+  if(q)items=items.filter(v=>v.title.toLowerCase().includes(q)||v.desc.toLowerCase().includes(q)||v.ch.toLowerCase().includes(q));
 
-function updateDateline(){
-  const now = new Date();
-  document.getElementById('gtb-dateline-date').textContent =
-    'Vol. ' + now.getFullYear() + ' · ' +
-    now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-}
-
-// AI-powered web search refresh
-async function refreshAll(){
-  const btn = document.querySelector('.gtb-refresh-btn');
-  btn.disabled = true;
-  btn.textContent = '⟳  Updating…';
-  document.getElementById('gtb-body').innerHTML =
-    `<div class="gtb-loading"><div class="gtb-spinner"></div><div>${t('loading')}</div><div class="gtb-status">Searching the web for the latest grief tech news…</div></div>`;
-
-  const articleTopics = ['AI grief support technology','virtual reality bereavement therapy','grief avatar digital afterlife','grief support chatbot AI','posthumous human cloning ethics','grief support robotics','augmented reality memorial technology'];
-  const allNew = [];
-
-  // --- Fetch articles ---
-  for(const topic of articleTopics){
-    try{
-      const res = await fetch('https://api.anthropic.com/v1/messages',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          model:'claude-sonnet-4-20250514',
-          max_tokens:1000,
-          tools:[{type:'web_search_20250305',name:'web_search'}],
-          system:`You are a research editor for The Grief Tech Brief. Search the web for the latest news, research, and reports on the given topic. Return a JSON array of up to 3 articles. Each object must have: title (string), summary (max 35 words, string), url (string), source (string), date (YYYY-MM-DD string, use today if unknown), type (one of: news|research|tech|report), cat (one of: ai|vr|avatar|chatbot|cloning|robotics). Return ONLY valid JSON array, no markdown fences, no preamble.`,
-          messages:[{role:'user',content:`Search for the very latest (2024-2025) articles, studies, or news about: ${topic}. Return JSON only.`}]
-        })
-      });
-      const data = await res.json();
-      const textBlocks = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
-      const clean = textBlocks.replace(/```json|```/g,'').trim();
-      const match = clean.match(/\[[\s\S]*\]/);
-      if(match){ allNew.push(...JSON.parse(match[0])); }
-    }catch(e){ console.warn('Article search failed:', topic, e); }
+  if(!items.length){
+    featBox.innerHTML='';
+    grid.innerHTML=`<div class="empty-grid"><div style="font-size:40px;margin-bottom:12px">🎥</div><h3>${tx('none')}</h3><p style="font-size:13px;margin-top:6px">${tx('noneSub')}</p></div>`;
+    document.getElementById('stxt').textContent=tx('none');
+    return;
   }
 
-  if(allNew.length > 0){
-    const combined = [...allNew, ...SEED_ARTICLES];
-    const seen = new Set();
-    articles = combined.filter(a=>{
-      if(!a.url||seen.has(a.url)) return false;
-      seen.add(a.url); return true;
-    }).sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,30);
-    lastFetch = new Date();
-  } else {
-    articles = [...SEED_ARTICLES];
-  }
+  // Featured
+  const fi=items.find(v=>v.feat)||items[0];
+  featBox.innerHTML=`<div class="feat">
+    <div class="feat-thumb">
+      <img src="${esc(fi.img)}" alt="" loading="lazy" onerror="this.style.display='none'">
+      <div class="feat-play"><div class="feat-play-c"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+      <div class="vdur">${esc(fi.dur)}</div>
+    </div>
+    <div class="feat-body">
+      <div class="feat-lbl">${tx('feat')}</div>
+      <div class="feat-title">${esc(fi.title)}</div>
+      <div class="feat-desc">${esc(fi.desc)}</div>
+      <div class="feat-row">
+        <span style="font-size:11px;color:#484f58">📺 ${esc(fi.ch)}</span>
+        <a class="wbtn" href="${esc(fi.url)}" target="_blank" rel="noopener noreferrer" onclick="tw('${esc(fi.id)}')">${tx('watch')}</a>
+      </div>
+    </div>
+  </div>`;
 
-  // --- Fetch verified YouTube videos ---
-  document.getElementById('gtb-body').innerHTML =
-    `<div class="gtb-loading"><div class="gtb-spinner"></div><div>Finding available grief tech videos…</div></div>`;
-  try{
-    const vres = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1200,
-        tools:[{type:'web_search_20250305',name:'web_search'}],
-        system:`You are a video curator for The Grief Tech Brief. Search YouTube for real, currently available, embeddable videos about grief technology topics. You MUST verify each YouTube video ID actually exists and is publicly available by searching for it. Only include videos that are confirmed to be publicly viewable. Return a JSON array of 6-8 videos. Each object must have: id (11-char YouTube video ID, string), title (string, max 80 chars), cat (one of: ai|vr|avatar|chatbot|cloning|robotics). Cover a variety of the cat values. Return ONLY valid JSON array, no markdown, no preamble. IMPORTANT: Double-check every video ID is real and currently public on YouTube.`,
-        messages:[{role:'user',content:`Search YouTube for currently available public videos about: grief technology, AI grief support, virtual reality bereavement, digital afterlife, grief avatars, grief chatbots, posthumous cloning ethics, grief support robots. Find real videos that exist right now and are embeddable. Return JSON only with verified video IDs.`}]
-      })
-    });
-    const vdata = await vres.json();
-    const vtxt = (vdata.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
-    const vmatch = vtxt.replace(/```json|```/g,'').trim().match(/\[[\s\S]*\]/);
-    if(vmatch){
-      const parsed = JSON.parse(vmatch[0]);
-      // Probe each video via YouTube's no-cookie oembed endpoint to confirm it's real
-      const verified = [];
-      for(const v of parsed){
-        if(!v.id||v.id.length!==11) continue;
-        try{
-          const probe = await fetch(`https://www.youtube-nocookie.com/oembed?url=https://www.youtube.com/watch?v=${v.id}&format=json`);
-          if(probe.ok) verified.push(v);
-        }catch(e){ /* skip unavailable */ }
-        if(verified.length>=8) break;
-      }
-      if(verified.length>0) VIDEOS = verified;
-    }
-  }catch(e){ console.warn('Video search failed:', e); }
+  // Grid — all items except featured
+  const rest=items.filter(v=>v.id!==fi.id);
+  if(!rest.length){grid.innerHTML='';return;}
 
-  btn.disabled = false;
-  btn.innerHTML = `<svg viewBox="0 0 16 16" fill="none" style="width:13px;height:13px"><path d="M13.5 8A5.5 5.5 0 1 1 8 2.5c1.8 0 3.4.87 4.4 2.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M12.5 2v3h-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Refresh`;
+  grid.innerHTML=rest.map(v=>`<div class="vc" id="vc-${esc(v.id)}">
+    <div class="vc-thumb">
+      <img src="${esc(v.img)}" alt="" loading="lazy" onerror="this.style.display='none'">
+      <div class="play-ov"><div class="play-c"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+      <div class="vdur">${esc(v.dur)}</div>
+      ${v.isnew?`<div class="vnew">${tx('new')}</div>`:''}
+    </div>
+    <div class="vc-body">
+      <div class="vtags">
+        <span class="vt ${esc(v.tc)}">${esc(v.tl)}</span>
+        <span class="vt tch2">📺 ${esc(v.ch)}</span>
+      </div>
+      <div class="vc-title">${esc(v.title)}</div>
+      <div class="vc-desc">${esc(v.desc)}</div>
+      <div class="vc-ft">
+        <span class="vc-met">⏱ ${esc(v.dur)}</span>
+        <a class="wbtn" href="${esc(v.url)}" target="_blank" rel="noopener noreferrer" onclick="tw('${esc(v.id)}')">${tx('watch')}</a>
+      </div>
+    </div>
+  </div>`).join('');
+
+  document.getElementById('stxt').textContent=`${items.length} ${tx('show')}`;
+}
+
+function tw(id){
+  const v=VIDS.find(x=>x.id===id);
+  if(!v)return;
+  let a=larch();a=a.filter(x=>x.id!==id);
+  a.unshift({id,title:v.title,ch:v.ch,cat:v.cat,at:new Date().toISOString()});
+  sarch(a);if(archOpen)renderArch();
+}
+
+function setF(cat,btn){
+  fcat=cat;
+  document.querySelectorAll('.fp').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
   render();
 }
 
-// Init
-updateDateline();
-setInterval(updateDateline, 60000);
+function toggleArch(){
+  archOpen=!archOpen;
+  document.getElementById('archBox').classList.toggle('open',archOpen);
+  document.getElementById('archBtn').classList.toggle('on',archOpen);
+  if(archOpen)renderArch();
+}
+function ga(){const q=(document.getElementById('ainp').value||'').toLowerCase().trim();const a=larch();return q?a.filter(x=>x.title.toLowerCase().includes(q)||(x.ch||'').toLowerCase().includes(q)):a}
+function apg(d){const a=ga();apgn=Math.max(0,Math.min(Math.ceil(a.length/PP)-1,apgn+d));renderArch()}
+function renderArch(){
+  const a=ga();const list=document.getElementById('alist');
+  document.getElementById('acnt').textContent=a.length+' / 200';
+  if(!a.length){list.innerHTML='<div class="aempty">No videos watched yet. Click Watch on any video to save it here.</div>';document.getElementById('apgr').style.display='none';return}
+  const tp=Math.ceil(a.length/PP);apgn=Math.min(apgn,Math.max(0,tp-1));
+  const sl=a.slice(apgn*PP,(apgn+1)*PP);
+  list.innerHTML=sl.map(x=>`<div class="aitem" onclick="jto('${esc(x.id)}')"><div class="adot"></div><div style="flex:1;min-width:0"><div class="atit">${esc(x.title)}</div><div class="amet">📺 ${esc(x.ch)} · ${relt(x.at)}</div></div></div>`).join('');
+  document.getElementById('apgr').style.display='flex';
+  document.getElementById('pgi').textContent=tx('pg')+' '+(apgn+1)+' '+tx('of')+' '+tp;
+  document.getElementById('ppg').disabled=apgn===0;
+  document.getElementById('npg').disabled=apgn>=tp-1;
+}
+function jto(id){toggleArch();setTimeout(()=>{const el=document.getElementById('vc-'+id);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},300)}
+function clearArch(){sessionStorage.removeItem(AK);apgn=0;renderArch()}
+
+function setLang(l){
+  lang=l;
+  document.getElementById('lsub').textContent=tx('sub');
+  document.getElementById('ltxt').textContent=tx('live');
+  document.getElementById('archLbl').textContent=tx('archive');
+  document.getElementById('refLbl').textContent=tx('refresh');
+  document.getElementById('archTitle').textContent=tx('arch');
+  document.getElementById('aclrLbl').textContent=tx('clr');
+  document.getElementById('ainp').placeholder=tx('archPh');
+  document.getElementById('srchInp').placeholder=tx('srchPh');
+  document.getElementById('ftxt').textContent=tx('foot');
+  document.getElementById('noteText').innerHTML=tx('note');
+  document.getElementById('ppg').textContent=tx('prev');
+  document.getElementById('npg').textContent=tx('next');
+  render();if(archOpen)renderArch();
+}
+
+function doRefresh(){
+  document.getElementById('lb').style.display='block';
+  document.getElementById('refBtn').classList.add('spin');
+  document.getElementById('refBtn').disabled=true;
+  setTimeout(()=>{
+    document.getElementById('lb').style.display='none';
+    document.getElementById('refBtn').classList.remove('spin');
+    document.getElementById('refBtn').disabled=false;
+    document.getElementById('lupdated').textContent=tx('upd')+' '+new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+    render();startCd();
+  },600);
+}
+function startCd(){
+  if(cdt)clearInterval(cdt);cdv=20*60;
+  const el=document.getElementById('cdown');
+  cdt=setInterval(()=>{cdv--;if(cdv<=0){clearInterval(cdt);doRefresh();return}const m=Math.floor(cdv/60),s=cdv%60;el.textContent=tx('rin')+' '+m+':'+String(s).padStart(2,'0')},1000);
+}
+
+// Boot — render immediately, no async
+document.getElementById('srchInp').placeholder=tx('srchPh');
+document.getElementById('lupdated').textContent=tx('upd')+' '+new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
 render();
-// Auto-fetch on load
-setTimeout(refreshAll, 800);
-// Auto-refresh every 2 hours
-setInterval(refreshAll, 7200000);
+startCd();
 </script>
 </body>
 </html>
